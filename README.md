@@ -221,7 +221,6 @@ Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para m
 ### 💡 Desenvolvido com ❤️ em Python
 
 **Desenvolvedor**: Afonso Pereira  
-**Empresa**: Softtek  
 **Última Atualização**: Abril de 2026
 
 ⭐ Se este projeto foi útil, considere deixar uma estrela! ⭐
