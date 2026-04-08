@@ -1,10 +1,18 @@
 import customtkinter as ctk
 from tkinter import messagebox
 import datetime
-import google.genai as genai
 
-# Configure Gemini API (substitua pela sua chave)
-client = genai.Client(api_key="YOUR_API_KEY")  # Insira sua chave da API do Gemini aqui
+# Importação adiada do google.genai para evitar problemas de DLL
+client = None
+
+def get_genai_client():
+    """Importa e retorna o cliente Gemini sob demanda"""
+    global client
+    if client is None:
+        import google.genai as genai
+        client = genai.Client(api_key="YOUR_API_KEY")  # Insira sua chave da API do Gemini aqui
+    return client
+
 
 # Script base de atendimento (exemplo, baseado em um script típico)
 script = {
@@ -134,7 +142,7 @@ def chat_with_ai():
             chat_text.insert("end", f"Você: {user_msg}\n")
             chat_entry.delete(0, "end")
             try:
-                response = client.models.generate_content(
+                response = get_genai_client().models.generate_content(
                     model="gemini-2.0-flash-exp",
                     contents=user_msg
                 )
@@ -431,7 +439,7 @@ def generate_with_ai():
     if current_key:
         prompt = f"Gere um texto apropriado para '{current_key}' em um script de atendimento ao cliente, em português."
         try:
-            response = client.models.generate_content(
+            response = get_genai_client().models.generate_content(
                 model="gemini-2.0-flash-exp",
                 contents=prompt
             )
